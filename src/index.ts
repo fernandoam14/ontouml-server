@@ -5,6 +5,7 @@ import verifyRouter from '@routes/verify';
 import modularizeRouter from '@routes/modularize';
 import transformGufoRouter from '@routes/transform.gufo';
 import transformDbRouter from '@routes/transform.db';
+import transformAlloyRouter from '@routes/transform.alloy';
 import { API_VERSION } from '@configs/index';
 import http from 'http';
 import bodyParser from 'body-parser';
@@ -12,7 +13,7 @@ import bodyParser from 'body-parser';
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 3000; //process.env.PORT ||
 
 app.set('json spaces', 2);
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
@@ -33,6 +34,7 @@ app.use((err, _req, res, next) => {
 app.use(`${API_VERSION}/verify`, verifyRouter);
 app.use(`${API_VERSION}/transform/gufo`, transformGufoRouter);
 app.use(`${API_VERSION}/transform/db`, transformDbRouter);
+app.use(`${API_VERSION}/transform/alloy`, transformAlloyRouter);
 app.use(`${API_VERSION}/modularize`, modularizeRouter);
 app.use(notFoundRouter);
 app.use(errorRouter);
